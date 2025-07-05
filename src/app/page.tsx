@@ -3,9 +3,9 @@
 import { metadata } from './metadata';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
+// metadata is used for SEO
 metadata;
 
 const EXAMPLE_PROMISES = [
