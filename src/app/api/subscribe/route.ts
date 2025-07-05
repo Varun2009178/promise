@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     console.log('User created successfully:', userData);
 
     // Insert the promise
-    const promiseData = {
+    const promiseData: any = {
       user_id: userData.id,
       promise_text: promise,
       created_at: new Date().toISOString(),
