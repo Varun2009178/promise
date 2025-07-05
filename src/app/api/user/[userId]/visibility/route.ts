@@ -20,7 +20,7 @@ export async function POST(
 
     // For now, just return success since the column doesn't exist
     // TODO: Add visibility column to promises table
-    console.log('Would set visibility:', visibility, 'for user:', params.userId);
+    console.log('Would set visibility:', visibility, 'for user:', userId);
     
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -15,7 +15,7 @@ export async function POST(
 
     // For now, just return success since the table doesn't exist
     // TODO: Create accountability_partners table in database
-    console.log('Would add accountability partner:', email, 'for user:', params.userId);
+    console.log('Would add accountability partner:', email, 'for user:', userId);
     
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -37,7 +37,7 @@ export async function DELETE(
     }
 
     // For now, just return success since the table doesn't exist
-    console.log('Would remove accountability partner:', email, 'for user:', params.userId);
+    console.log('Would remove accountability partner:', email, 'for user:', userId);
     
     return NextResponse.json({ success: true });
   } catch (error) {

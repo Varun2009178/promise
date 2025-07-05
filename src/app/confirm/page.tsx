@@ -1,10 +1,14 @@
 "use client";
 
 import { useSearchParams, useRouter } from 'next/navigation';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import { cn } from "@/lib/utils";
+import { Suspense } from 'react';
 
-export default function ConfirmPage() {
+function ConfirmPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promise = searchParams.get('promise') || '';
@@ -490,5 +494,17 @@ export default function ConfirmPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ConfirmPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a]">
+        <div className="text-white">Loading...</div>
+      </div>
+    }>
+      <ConfirmPageContent />
+    </Suspense>
   );
 } 

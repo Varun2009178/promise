@@ -1,12 +1,8 @@
 "use client";
 
-import { metadata } from './metadata';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from "@/lib/utils";
-
-// metadata is used for SEO
-metadata;
 
 const EXAMPLE_PROMISES = [
   "write one page",

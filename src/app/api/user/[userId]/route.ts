@@ -121,8 +121,12 @@ export async function PUT(
 }
 
 // Add PATCH method to update user preferences like reminder time
-export async function PATCH(request: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
   try {
+    const { userId } = await params;
     const body = await request.json();
     const { completed, completed_at, reminder_time, promise_text, target_date, is_eco_friendly, witness_email, visibility } = body;
 
@@ -131,7 +135,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       const { error: userError } = await supabase
         .from('users')
         .update({ reminder_time })
-        .eq('id', params.userId);
+        .eq('id', userId);
 
       if (userError) {
         console.error('Error updating user reminder time:', userError);
@@ -156,7 +160,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       const { error: promiseError } = await supabase
         .from('promises')
         .update(updateData)
-        .eq('user_id', params.userId)
+        .eq('user_id', userId)
         .is('completed_at', null);
 
       if (promiseError) {
@@ -195,8 +199,12 @@ export async function DELETE(
   }
 }
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
   try {
+    const { userId } = await params;
     const { promise_text, target_date, is_eco_friendly, witness_email, visibility } = await request.json();
 
     if (!promise_text || !target_date) {
@@ -207,7 +215,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const { data, error } = await supabase
       .from('promises')
       .insert({
-        user_id: params.userId,
+        user_id: userId,
         promise_text,
         target_date,
         is_eco_friendly: is_eco_friendly || false,

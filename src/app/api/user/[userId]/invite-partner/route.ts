@@ -81,7 +81,7 @@ export async function GET(
     const { data: invitations, error } = await supabase
       .from('accountability_invitations')
       .select('*')
-      .eq('user_id', params.userId)
+      .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
     if (error) {

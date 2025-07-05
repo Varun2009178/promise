@@ -23,7 +23,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     // Get the promise details for notifications
     const { data: promiseData, error: fetchError } = await supabase
       .from('promises')
-      .select('promise_text, users!inner(name)')
+      .select('promise_text, users(name)')
       .eq('id', promise_id)
       .single();
 
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       promiseText: promiseData.promise_text,
       accountabilityPartners: [], // We'll implement this later if needed
       witnessEmail: null, // We'll implement this later if needed
-      userName: promiseData.users.name
+      userName: Array.isArray(promiseData.users) && promiseData.users.length > 0 ? promiseData.users[0].name : 'User'
     };
 
     const notifications = [];

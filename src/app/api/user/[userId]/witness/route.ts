@@ -15,7 +15,7 @@ export async function POST(
 
     // For now, just return success since the column doesn't exist
     // TODO: Add witness_email column to promises table
-    console.log('Would set witness:', email, 'for user:', params.userId);
+    console.log('Would set witness:', email, 'for user:', userId);
     
     return NextResponse.json({ success: true });
   } catch (error) {

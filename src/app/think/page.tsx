@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { cn } from "@/lib/utils";
+import { Suspense } from 'react';
 
-export default function ThinkPage() {
+function ThinkPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const promise = searchParams.get('promise') || '';
@@ -220,5 +224,17 @@ export default function ThinkPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ThinkPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a]">
+        <div className="text-white">Loading...</div>
+      </div>
+    }>
+      <ThinkPageContent />
+    </Suspense>
   );
 } 
