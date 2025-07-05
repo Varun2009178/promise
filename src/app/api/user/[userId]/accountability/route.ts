@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export async function POST(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  const { userId } = await params;
   try {
     const { email } = await request.json();
 
@@ -20,7 +24,11 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  const { userId } = await params;
   try {
     const { email } = await request.json();
 
@@ -38,7 +46,11 @@ export async function DELETE(request: NextRequest, { params }: { params: { userI
   }
 }
 
-export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  const { userId } = await params;
   try {
     // For now, return empty array since the table doesn't exist
     // TODO: Create accountability_partners table in database

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export async function GET(request: NextRequest, { params }: { params: { invitationId: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ invitationId: string }> }
+) {
+  const { invitationId } = await params;
   try {
     const { data: invitation, error } = await supabase
       .from('accountability_invitations')
@@ -9,7 +13,7 @@ export async function GET(request: NextRequest, { params }: { params: { invitati
         *,
         user:users(name, email)
       `)
-      .eq('id', params.invitationId)
+      .eq('id', invitationId)
       .single();
 
     if (error) {

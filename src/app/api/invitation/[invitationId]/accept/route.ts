@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export async function POST(request: NextRequest, { params }: { params: { invitationId: string } }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ invitationId: string }> }
+) {
+  const { invitationId } = await params;
   try {
     // Update invitation status to accepted
     const { data: invitation, error: updateError } = await supabase
       .from('accountability_invitations')
       .update({ status: 'accepted' })
-      .eq('id', params.invitationId)
+      .eq('id', invitationId)
       .select(`
         *,
         user:users(name, email)
